@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mathegym Helper – Settings</title>
+<style>
+  :root { --bg: #edf3f4; --card: #fff; --text: #1d343e; --muted: #536a73; --line: #c9d6da; --accent: #c85000; --link: #15536b; --ok: #1d6b3a; --bad: #a12a1a; color-scheme: light; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #11191c; --card: #1a2529; --text: #e3ecee; --muted: #9db0b6; --line: #33464c; --accent: #e06a1b; --link: #7cc3dc; --ok: #6fcf8f; --bad: #ff8a75; color-scheme: dark; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 32px 16px; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, sans-serif; }
+  main { max-width: 720px; margin: auto; display: grid; gap: 18px; }
+  section { background: var(--card); border-radius: 14px; padding: 22px 24px; }
+  h1 { margin: 0 0 4px; font-size: 26px; line-height: 1.2; }
+  h2 { margin: 0 0 10px; font-size: 19px; }
+  p, ol { margin: 8px 0; }
+  li { margin-bottom: 6px; }
+  a { color: var(--link); }
+  label { display: block; font-weight: 600; margin-top: 12px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 8px; }
+  input { flex: 1 1 260px; min-width: 0; font: 15px/1.4 ui-monospace, monospace; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--text); }
+  button { font: inherit; padding: 9px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--text); cursor: pointer; }
+  button:disabled { opacity: .6; cursor: wait; }
+  .primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+  .status { min-height: 1.6em; white-space: pre-wrap; }
+  .status.ok { color: var(--ok); }
+  .status.bad { color: var(--bad); }
+  .muted { color: var(--muted); font-size: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: left; padding: 7px 6px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; }
+  td:nth-child(2) { font-variant-numeric: tabular-nums; }
+  kbd { font: 13px ui-monospace, monospace; padding: 1px 6px; border: 1px solid var(--line); border-radius: 4px; }
+</style>
+</head>
+<body>
+<main>
+  <section>
+    <h1>Mathegym Helper</h1>
+    <p class="muted">Settings for the free AI via Google AI Studio (Gemma 4 and Gemini).</p>
+  </section>
+
+  <section aria-labelledby="setup-title">
+    <h2 id="setup-title">Set up the free AI</h2>
+    <ol>
+      <li>Open <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">aistudio.google.com/apikey</a> and sign in with your Google account.</li>
+      <li>Click <strong>Create API key</strong> and copy the key.</li>
+      <li>Paste it here and click <strong>Save and verify</strong>.</li>
+    </ol>
+    <form id="form" autocomplete="off">
+      <label for="key">API key</label>
+      <div class="row">
+        <input id="key" type="password" spellcheck="false" placeholder="AIza…" aria-describedby="saved">
+        <button type="button" id="toggle" aria-pressed="false">Show</button>
+      </div>
+      <p class="muted" id="saved"></p>
+      <div class="row">
+        <button type="submit" class="primary" id="save">Save and verify</button>
+        <button type="button" id="test">Run test task</button>
+        <button type="button" id="remove">Remove key</button>
+      </div>
+      <p class="status" id="status" role="status"></p>
+    </form>
+  </section>
+
+  <section aria-labelledby="models-title">
+    <h2 id="models-title">Models and usage today</h2>
+    <table>
+      <thead><tr><th scope="col">Model</th><th scope="col">Requests today</th><th scope="col">Status</th></tr></thead>
+      <tbody id="models"></tbody>
+    </table>
+    <p class="muted">Automatic mode uses the first available model in this list. When a daily quota is used up, the next model takes over. Rough numbers from Google AI Studio: about 1,500 requests per day for each Gemma 4 model, a few hundred for Gemini Flash-Lite and about 20 for Gemini Flash. The quotas reset at <span id="reset">09:00</span> (midnight Pacific time).</p>
+  </section>
+
+  <section aria-labelledby="free-title">
+    <h2 id="free-title">Staying free and privacy</h2>
+    <p><strong>Do not enable billing for the Google project.</strong> Then the key can never cost money: when the quota is used up, Google only reports a limit.</p>
+    <p>Only the task text, field information and, if you want, an image of the task area are sent. According to the Gemini API terms, Google does not use this data for training for users in the EEA, Switzerland and the UK. The key is stored only in this extension; Mathegym cannot read it.</p>
+    <p>Usage: click <strong>Solve</strong> next to a result field or press <kbd>Alt</kbd>+<kbd>L</kbd>. Simple tasks are calculated without AI. Nothing is ever submitted automatically.</p>
+    <p class="muted">Version <span id="version"></span> · Unofficial, not affiliated with Mathegym · <a href="https://github.com/LeoAppleCool/mathegym-helper/releases" target="_blank" rel="noopener noreferrer">Updates and source code</a></p>
+  </section>
+</main>
+<script src="gemini.js"></script>
+<script src="options.js"></script>
+</body>
+</html>

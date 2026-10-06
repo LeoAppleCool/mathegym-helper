@@ -1,0 +1,16 @@
+{
+  "name": "mathegym-helper",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Solve buttons for Mathegym: local calculation and free AI via Google AI Studio (Gemma 4 / Gemini).",
+  "homepage": "https://github.com/LeoAppleCool/mathegym-helper",
+  "repository": { "type": "git", "url": "https://github.com/LeoAppleCool/mathegym-helper.git" },
+  "scripts": {
+    "build": "node build.cjs",
+    "test": "node build.cjs && node tests/gemini.test.cjs && node tests/ai.test.cjs && node tests/buttons.test.cjs"
+  },
+  "devDependencies": {
+    "html2canvas": "1.4.1",
+    "playwright": "^1.63.0"
+  }
+}

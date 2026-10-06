@@ -1,0 +1,8 @@
+node_modules/
+# Build output (npm run build)
+extension/
+release/
+bookmarklet.txt
+install.html
+# Local backup of the old version
+alt/
